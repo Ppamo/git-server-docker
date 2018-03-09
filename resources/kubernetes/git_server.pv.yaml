@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/bound-by-controller: "yes"
+  name: git-server-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  nfs:
+    path: /var/lib/docker/nfsibmicp/git
+    server: 127.0.0.1
+  persistentVolumeReclaimPolicy: Retain
+status:
+  phase: Bound
