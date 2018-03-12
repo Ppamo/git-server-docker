@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: git-server
+ namespace: utils
+spec:
+ replicas: 1
+ template:
+  metadata:
+   labels:
+    app: git-server
+    tier: server
+  spec:
+   containers:
+    - name: git-server
+      image: utils/git-server:0.1.0
+      ports:
+       - containerPort: 22
+      volumeMounts:
+       - name: nfsvol
+         mountPath: /git-server/repos
+   volumes:
+        - name: nfsvol
+          persistentVolumeClaim:
+            claimName: git-server-pvc
